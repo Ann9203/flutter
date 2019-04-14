@@ -12,7 +12,7 @@ class HomePage extends StatefulWidget {
 }
 
 /**
- * 翻拍动画
+ * 翻牌动画效果
  */
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin{
