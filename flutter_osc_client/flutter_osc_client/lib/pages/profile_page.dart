@@ -99,6 +99,7 @@ class _ProfilePageState extends State<ProfilePage> {
     });
     eventBus.on<LogoutEvent>().listen((event) {
       //TODO 退出登录
+      _showUserInfo();
     });
   }
 

@@ -34,7 +34,7 @@ class DataSaveUtils{
 
 
   ///存储登录信息
-  static Future<void> clearLoginInfo(Map<String, dynamic> map)async{
+  static Future<void> clearLoginInfo()async{
     SharedPreferences sharedPreferences =  await SharedPreferences.getInstance();
     sharedPreferences
       ..setString(SP_ACCESS_TOKEN, '')
