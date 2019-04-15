@@ -129,7 +129,7 @@ class _UserInfoDetailPageState extends State<UserInfoDetailPage> {
   }
 
   ///动态构建条目
-  InkWell _buildInkWell(String name, String value, bool isExpended) {
+  InkWell _buildInkWell(String name, String value, bool isExpended,{Function function}) {
     return InkWell(
                           onTap: (){},
                           child: Container(

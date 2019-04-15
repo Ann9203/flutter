@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_osc_client/constance/constants.dart'
     show AppColors, AppUrls;
 import 'package:flutter_osc_client/netUtils/net_utils.dart';
+import 'package:flutter_osc_client/pages/my_message_center_page.dart';
 import 'package:flutter_osc_client/pages/user_detain_info_page.dart';
 import 'package:flutter_osc_client/pages/web_login_page.dart';
 import 'package:flutter_osc_client/utils/data_save_utils.dart';
@@ -48,13 +49,16 @@ class _ProfilePageState extends State<ProfilePage> {
   void _showUserInfo() {
     DataSaveUtils.getUserInfo().then((userInfo){
 
-      if(userInfo != null){
-        userIcon = userInfo.avatar;
-        userName = userInfo.name;
-      } else {
-         userIcon = null;
-         userName = null;
-      }
+      setState(() {
+        if(userInfo != null){
+          userIcon = userInfo.avatar;
+          userName = userInfo.name;
+        } else {
+          userIcon = null;
+          userName = null;
+        }
+      });
+
     });
   }
 
@@ -167,6 +171,17 @@ class _ProfilePageState extends State<ProfilePage> {
                 title: Text(menuTitle[index]),
                 leading: Icon(menuIcons[index]),
                 trailing: Icon(CupertinoIcons.forward),
+                onTap: (){
+                  DataSaveUtils.isLogin().then((isLogin){
+                    if(isLogin){
+                      switch(index){
+                        case 0:
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MyMessageCentrPage()));
+                          break;
+                      }
+                    }
+                  });
+                },
               );
             },
             separatorBuilder: (context, index) {
@@ -181,5 +196,6 @@ class _ProfilePageState extends State<ProfilePage> {
               }
             },
             itemCount: menuIcons.length + 1));
+
   }
 }
