@@ -66,7 +66,7 @@ class _UserInfoDetailPageState extends State<UserInfoDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('我的资料' , style: TextStyle(fontSize: 25.0, color: Color(AppColors.APP_THEME_ICON_COLOR)),),
+        title: Text('我的资料' , style: TextStyle(fontSize: 20.0, color: Color(AppColors.APP_THEME_ICON_COLOR)),),
         iconTheme: IconThemeData(color: Color(AppColors.APP_THEME_ICON_COLOR)),
       ),
       body: Container(
@@ -88,7 +88,7 @@ class _UserInfoDetailPageState extends State<UserInfoDetailPage> {
                                 children: <Widget>[
                                   Text(
                                     '头像',
-                                    style: TextStyle(fontSize: 18.0),
+                                    style: TextStyle(fontSize: 15.0),
                                   ),
                                   Container(
                                     width: 60.0,
@@ -139,10 +139,10 @@ class _UserInfoDetailPageState extends State<UserInfoDetailPage> {
                               crossAxisAlignment:  CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
-                                Text(name, style: TextStyle(fontSize: 18.0),),
+                                Text(name, style: TextStyle(fontSize: 15.0),),
                                 isExpended?
-                                    Expanded(child: Text(value, textAlign: TextAlign.right, maxLines: 1, style: TextStyle(fontSize: 18.0),))
-                                    :Text(value, style: TextStyle(fontSize: 18.0, ),)
+                                    Expanded(child: Text(value, textAlign: TextAlign.right, maxLines: 1, style: TextStyle(fontSize: 15.0),))
+                                    :Text(value, style: TextStyle(fontSize: 15.0, ),)
                               ],
                             ),
                           ),
