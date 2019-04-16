@@ -6,6 +6,7 @@ abstract class AppColors{
   static const APP_THEME_COLOR = 0xff63ca6c;
   static const APP_THEME_ICON_COLOR = 0xffffffff;
   static const APP_MIN_SIZE_COLOR = 0xffaaaaaa;
+  static const APP_LINE_COLOR = 0xffdddddd;
 }
 
 
@@ -23,7 +24,8 @@ abstract class AppUrls{
 abstract class AppInfo{
   static const String CLIENT_ID = '9Um24uw7HtMkDTsMqjut';  //id
   static const String CLIENT_SECRET = 'OZWcxQFy8IplQV8wKRZhdGpxfzWONz74';//秘钥
-  static const String REDIRECT_URI = 'https://flutterchina.club/'; //回调地址
+ //static const String REDIRECT_URI = 'https://flutterchina.club/'; //回调地址
+  static const String REDIRECT_URI = 'https://flutterchina.club'; //回调地址
 
 }
 
