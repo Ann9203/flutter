@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_osc_client/constance/constants.dart';
+import 'package:flutter_osc_client/pages/news_detail_page.dart';
 
 class NewsListItem extends StatelessWidget {
   final Map<String, dynamic> newsList;
@@ -9,7 +10,10 @@ class NewsListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+
+        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>NewsDetailPage(newsId: newsList['id'],)));
+      },
       child: Container(
         padding: const EdgeInsets.all(20.0),
         decoration: BoxDecoration(
@@ -32,7 +36,7 @@ class NewsListItem extends StatelessWidget {
               children: <Widget>[
 
                 Text(
-                    '${newsList['author']} ${newsList['pubDate'].toString().split(' ')[0]}'),
+                    '@${newsList['author']} ${newsList['pubDate'].toString().split(' ')[0]}'),
                 Row(
                   children: <Widget>[
                     Text('${newsList['commentCount']}'),

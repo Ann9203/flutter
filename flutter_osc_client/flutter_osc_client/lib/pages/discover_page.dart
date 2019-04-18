@@ -2,6 +2,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_osc_client/constance/constants.dart';
 import 'package:flutter_osc_client/pages/common_web_page.dart';
+import 'package:barcode_scan/barcode_scan.dart';
+import 'package:flutter_osc_client/pages/shake_page.dart';
 
 class DiscoverPage extends StatefulWidget {
   @override
@@ -20,6 +22,12 @@ class _DiscoverPageState extends State<DiscoverPage> {
       "线下活动": 'assets/images/activity.png',},
   ];
 
+  ///根据url链接自动跳转到web页面
+  Future _scan()async{
+     String barCode = await BarcodeScanner.scan();
+     print('barCode0 $barCode');
+//     _nativeTowWebPage( '扫一扫',barCode);
+  }
 
 
 
@@ -101,8 +109,10 @@ class _DiscoverPageState extends State<DiscoverPage> {
         break;
 
       case '摇一摇':
+        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ShakePage()));
         break;
       case '扫一扫':
+//        _scan();
         break;
 
 

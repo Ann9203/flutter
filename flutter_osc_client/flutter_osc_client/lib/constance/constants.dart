@@ -19,6 +19,7 @@ abstract class AppUrls{
   static const String MY_INFORMATION = HOST +'/action/openapi/my_information'; //获取用户详情
   static const String MESSAGE_LIST = HOST +'/action/openapi/message_list'; //获取私信消息列表
   static const String NEWS_LIST = HOST + '/action/openapi/news_list';
+  static const String NEWS_DETSIL_LIST = HOST + '/action/openapi/news_detail';
 
 
 }

@@ -18,40 +18,59 @@ class _NewsListPageState extends State<NewsListPage> {
   bool isLogin = false;
   int currentPage = 1;
   List newsList;
+  ScrollController _scrollController = ScrollController();
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    _scrollController.addListener((){
+      var maxScroll = _scrollController.position.maxScrollExtent;  //最大
+      var piexls = _scrollController.position.pixels; //当前
+      if(maxScroll == piexls){
+         currentPage ++;
+          Future.delayed(Duration(seconds: 3),(){
+            getNewList(true);
+          });
+      }
+
+
+    });
+
     ///判断是会否登录
-    DataSaveUtils.isLogin().then((isLogin){
-      if(!mounted) return;
+    DataSaveUtils.isLogin().then((isLogin) {
+      if (!mounted) return;
       setState(() {
         this.isLogin = isLogin;
       });
     });
 
     ///监听登出
-    eventBus.on<LogoutEvent>().listen((event){
+    eventBus.on<LogoutEvent>().listen((event) {
+      if (!mounted) true;
       setState(() {
         this.isLogin = false;
       });
     });
 
     //监听登录
-    eventBus.on<LoginEvent>().listen((event){
+    eventBus.on<LoginEvent>().listen((event) {
+      if (!mounted) return;
       setState(() {
         this.isLogin = true;
       });
+      //登录成功
       getNewList(false);
     });
   }
 
 
 
+
   @override
   Widget build(BuildContext context) {
     ///没有登录去登录
-    if(!isLogin){
+    if (!isLogin) {
       return Container(
         child: Center(
           child: Column(
@@ -68,27 +87,29 @@ class _NewsListPageState extends State<NewsListPage> {
       );
     }
 
-
     return Scaffold(
         body: RefreshIndicator(
-            child: _buildWidget(),
-            onRefresh:_pullToRefresh,
-        )
-    );
+      child: _buildWidget(),
+      onRefresh: _pullToRefresh,
+    ));
   }
- Future<Null> _pullToRefresh() async{
+
+  Future<Null> _pullToRefresh() async {
     currentPage = 1;
     getNewList(false);
   }
 
   ///去登陆
-  _gotoLogin()async{
-   final result =  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>LoginWebPage()));
-   // ignore: unrelated_type_equality_checks
-   if(result != null && result == 'refresh'){
-     eventBus.fire(LoginEvent());
-   }
+  _gotoLogin() async {
+    final result = await Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => LoginWebPage()));
+
+    if (result != null && result == 'refresh') {
+      ///登录成功 eventBus 通知
+      eventBus.fire(LoginEvent());
+    }
   }
+
   _buildWidget() {
     if (newsList == null) {
       //TODO 获取数据
@@ -97,19 +118,33 @@ class _NewsListPageState extends State<NewsListPage> {
     }
 
     return ListView.builder(
-        itemBuilder: (contex, index) {
-      return NewsListItem(newsList: newsList[index]);
-    },
-      itemCount: newsList.length,
+      controller: _scrollController,
+      itemBuilder: (contex, index) {
+        if (index == newsList.length) {
+          ///尾部句
+          return Container(
+            height: 60.0,
+
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[CupertinoActivityIndicator(), Text('上拉加载更多')],
+            ),
+          );
+        }
+
+        return NewsListItem(newsList: newsList[index]);
+      },
+      itemCount: newsList.length + 1,
+
     );
   }
 
   ///加载数据
   getNewList(bool isLoadMore) {
-    DataSaveUtils.isLogin().then(((isLogin){
-      if(isLogin){
-        DataSaveUtils.getAccessToken().then((accessToken){
-          if(accessToken != null && accessToken.length >0){
+    DataSaveUtils.isLogin().then(((isLogin) {
+      if (isLogin) {
+        DataSaveUtils.getAccessToken().then((accessToken) {
+          if (accessToken != null && accessToken.length > 0) {
             Map<String, dynamic> params = Map();
             params['access_token'] = accessToken;
             params['catalog'] = 1;
@@ -117,15 +152,14 @@ class _NewsListPageState extends State<NewsListPage> {
             params['pageSize'] = 20;
             params['dataType'] = 'json';
 
-            NetUtils.get(AppUrls.NEWS_LIST, params).then((data){
-
-              if(data != null && data.length > 0){
+            NetUtils.get(AppUrls.NEWS_LIST, params).then((data) {
+              if (data != null && data.length > 0) {
                 Map<String, dynamic> requestInfo = json.decode(data);
-                List _newsList ;
+                List _newsList;
                 _newsList = requestInfo['newslist'];
                 setState(() {
-                  if(!mounted) return;
-                  if(isLoadMore){
+                  if (!mounted) return;
+                  if (isLoadMore) {
                     newsList.addAll(_newsList);
                   } else {
                     newsList = _newsList;
@@ -134,13 +168,8 @@ class _NewsListPageState extends State<NewsListPage> {
               }
             });
           }
-
-
         });
       }
-
     }));
   }
 }
-
-

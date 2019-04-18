@@ -107,7 +107,7 @@ class DataSaveUtils{
     User user = new User(
       gender: sharedPreferences.getString(SP_USER_GENDER),
       name: sharedPreferences.getString(SP_USER_NAME),
-      id: sharedPreferences.getInt(SP_USER_ID),
+        id: sharedPreferences.getInt(SP_USER_ID),
       avatar: sharedPreferences.getString(SP_USER_AVATAR),
       location: sharedPreferences.getString(SP_USER_LOCATION),
       email: sharedPreferences.getString(SP_USER_EMAIL),
