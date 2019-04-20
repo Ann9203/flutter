@@ -7,6 +7,7 @@ abstract class AppColors{
   static const APP_THEME_ICON_COLOR = 0xffffffff;
   static const APP_MIN_SIZE_COLOR = 0xffaaaaaa;
   static const APP_LINE_COLOR = 0xffdddddd;
+  static const APP_LINE1_COLOR = 0xffeeeeee;
 }
 
 
@@ -20,6 +21,7 @@ abstract class AppUrls{
   static const String MESSAGE_LIST = HOST +'/action/openapi/message_list'; //获取私信消息列表
   static const String NEWS_LIST = HOST + '/action/openapi/news_list';
   static const String NEWS_DETSIL_LIST = HOST + '/action/openapi/news_detail';
+  static const String TWEET_LIST = HOST + '/action/openapi/tweet_list';
 
 
 }
