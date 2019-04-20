@@ -32,7 +32,10 @@ dependencies:
 #  vibration: 1.0.2 震动声音
   vibration: ^1.0.2
 #图片选择
-  image_picker: ^0.5.0+9
+  image_picker: ^0.5.4
+
+  permission_handler: ^3.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
